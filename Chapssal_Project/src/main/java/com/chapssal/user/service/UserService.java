@@ -1,11 +1,13 @@
-package com.example.demo.user.service;
+package com.chapssal.user.service;
 
 import java.time.LocalDateTime;
 import java.util.List;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
-import com.example.demo.user.model.User;
-import com.example.demo.user.repository.UserRepository;
+
+import com.chapssal.user.model.User;
+import com.chapssal.user.repository.UserRepository;
+
 import lombok.RequiredArgsConstructor;
 
 @RequiredArgsConstructor

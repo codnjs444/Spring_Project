@@ -1,5 +1,4 @@
-package com.example.demo.user.model;
-
+package com.example.demo.user;
 
 import jakarta.persistence.Entity;
 import jakarta.persistence.Table;

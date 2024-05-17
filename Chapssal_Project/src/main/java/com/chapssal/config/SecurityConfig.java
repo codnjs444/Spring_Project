@@ -1,4 +1,4 @@
-package com.example.demo.config;
+package com.chapssal.config;
 
 import org.springframework.context.annotation.Bean;
 
@@ -25,11 +25,7 @@ public class SecurityConfig {
             .csrf(csrf -> csrf.disable())  // CSRF 보호 비활성화
             .headers(headers -> headers
                 .addHeaderWriter(new XFrameOptionsHeaderWriter(XFrameOptionsHeaderWriter.XFrameOptionsMode.SAMEORIGIN)))
-            .formLogin(formLogin -> formLogin
-                .loginPage("/user/login")
-                .loginProcessingUrl("/login")
-                .defaultSuccessUrl("/")
-                .permitAll())
+            .formLogin((formLogin) -> formLogin.loginPage("/user/login").defaultSuccessUrl("/"))
             .logout(logout -> logout
                 .logoutRequestMatcher(new AntPathRequestMatcher("/user/logout"))
                 .logoutSuccessUrl("/")

@@ -1,8 +1,7 @@
-package com.example.demo.user.DTO;
+package com.chapssal.user.DTO;
 
 import lombok.Getter;
 import lombok.Setter;
-import jakarta.validation.constraints.Email;
 import jakarta.validation.constraints.NotEmpty;
 import jakarta.validation.constraints.Size;
 

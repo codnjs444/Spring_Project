@@ -1,4 +1,4 @@
-package com.example.demo.user.model;
+package com.chapssal.user.model;
 
 
 import jakarta.persistence.Entity;
@@ -27,17 +27,14 @@ public class User {
     @Column(name = "userName", nullable = true)
     private String userName;  // 사용자 이름
 
-    @Column(name = "userNickName", nullable = true)
-    private String userNickName;  // 사용자 닉네임
-
     @Column(name = "password", nullable = false)
     private String password;  // 비밀번호
 
     @Column(name = "profilePictureUrl", nullable = true)
     private String profilePictureUrl;  // 프로필 사진 URL
 
-    @Column(name = "schoolNum", nullable = true)
-    private Integer schoolNum;  // 소속 초등학교 번호
+    @Column(name = "school", nullable = true)
+    private Integer school;  // 소속 초등학교 번호
 
     @Column(name = "createDate", nullable = false)
     private LocalDateTime createDate;  // 계정 생성 일자
@@ -48,8 +45,8 @@ public class User {
     @Column(name = "lastLogin", nullable = true)
     private LocalDateTime lastLogin;  // 마지막 로그인 시각
 
-    @Column(name = "phoneNum", nullable = true)
-    private Integer phoneNum;  // 휴대폰 번호
+    @Column(name = "phone", nullable = true)
+    private String phone;  // 휴대폰 번호
 
     @Column(name = "job", nullable = true)
     private String job;  // 직업
