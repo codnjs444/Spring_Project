@@ -18,4 +18,7 @@ public class UserCreateForm {
     @NotEmpty(message = "비밀번호는 필수 항목입니다.")
     private String password2;
 
+    @NotEmpty(message = "학교 코드는 필수 항목입니다.")
+    private String schoolCode;
+
 }
