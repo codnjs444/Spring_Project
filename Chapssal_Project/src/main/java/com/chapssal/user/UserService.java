@@ -1,12 +1,13 @@
-package com.chapssal.user.service;
+package com.chapssal.user;
 
 import java.time.LocalDateTime;
 import java.util.List;
+import java.util.Optional;
+
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 
-import com.chapssal.user.model.User;
-import com.chapssal.user.repository.UserRepository;
+import com.chapssal.DataNotFoundException;
 
 import lombok.RequiredArgsConstructor;
 
@@ -28,6 +29,16 @@ public class UserService {
         userRepository.save(user);
         return user;
     }
+    
+    public User getUser(String userid) {
+		Optional<User> siteUser = this.userRepository.findByUserId(userid);
+		if(siteUser.isPresent()) {
+			return siteUser.get();
+		} else {
+			throw new DataNotFoundException("siteuser not found");
+		}
+		
+	}
 
     public List<User> findAllUsers() {
         return userRepository.findAll();

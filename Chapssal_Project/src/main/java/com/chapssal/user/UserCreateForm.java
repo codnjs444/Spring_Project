@@ -1,4 +1,4 @@
-package com.chapssal.user.DTO;
+package com.chapssal.user;
 
 import lombok.Getter;
 import lombok.Setter;
