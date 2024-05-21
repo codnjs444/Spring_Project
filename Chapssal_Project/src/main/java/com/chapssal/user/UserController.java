@@ -15,6 +15,7 @@ import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
@@ -179,5 +180,37 @@ public class UserController {
 
         return "redirect:/user/profile";
     }
+    
+    @GetMapping("/profile/{userNum}")
+    public String getUserProfile(@PathVariable("userNum") Integer userNum, Model model) {
+        User user = userService.findByUserNum(userNum);
+        if (user == null) {
+            return "redirect:/"; // 사용자를 찾을 수 없으면 홈으로 리다이렉트
+        }
+
+        String userName = user.getUserName();
+        String schoolName = user.getSchool().getSchoolName();
+        String bio = user.getBio();
+
+        model.addAttribute("userName", userName);
+        model.addAttribute("schoolName", schoolName);
+        model.addAttribute("bio", bio);
+        model.addAttribute("userNum", userNum);
+
+        int followingCount = followService.countFollowingByUserNum(userNum);
+        int followerCount = followService.countFollowerByUserNum(userNum);
+
+        model.addAttribute("followingCount", followingCount);
+        model.addAttribute("followerCount", followerCount);
+        
+        List<User> followingUsers = followService.getFollowingUsers(userNum);
+        List<User> followerUsers = followService.getFollowerUsers(userNum);
+
+        model.addAttribute("followingUsers", followingUsers);
+        model.addAttribute("followerUsers", followerUsers);
+        return "user_profile";
+    }
+
+
 
 }

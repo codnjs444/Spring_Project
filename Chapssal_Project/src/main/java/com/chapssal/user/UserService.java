@@ -97,4 +97,9 @@ public class UserService {
         return userRepository.findUserNameByUserId(userId)
                              .orElse("사용자"); // 사용자 이름이 없을 경우 "사용자"를 반환
     }
+    
+    public User findByUserNum(Integer userNum) {
+        return userRepository.findById(userNum).orElse(null);
+    }
+
 }

@@ -7,8 +7,18 @@
     <title>Document</title>
     <link rel="stylesheet" th:href="@{/bootstrap.min.css}">
     <link rel="stylesheet" th:href="@{/css/styles.css}">
-    <!-- Bootstrap Icons CSS 추가 -->
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-icons/1.8.1/font/bootstrap-icons.min.css">
+    <style>
+        .no-link-style {
+            color: inherit;
+            text-decoration: none;
+            cursor: pointer;
+        }
+        .no-link-style:hover {
+            color: inherit;
+            text-decoration: none;
+        }
+    </style>
 </head>
 
 <body>
@@ -43,7 +53,6 @@
                                 <textarea class="form-control" id="bio" name="bio" rows="3" placeholder="자기소개 입력" th:text="${bio}"></textarea>
                             </div>
                         </div>
-                        <!-- 모달 푸터 -->
                         <div class="modal-footer d-flex justify-content-end">
                             <button type="submit" class="btn btn-primary">저장</button>
                             <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">취소</button>
@@ -58,14 +67,12 @@
     <div th:fragment="followersModalFragment">
         <div class="modal fade" id="followersModal" tabindex="-1" aria-labelledby="followersModalLabel" aria-hidden="true">
             <div class="modal-dialog modal-md">
-                <!-- 모달 크기를 md로 설정 -->
                 <div class="modal-content">
                     <div class="modal-header">
                         <h5 class="modal-title" id="followersModalLabel">소셜 네트워크</h5>
                         <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
                     </div>
                     <div class="modal-body">
-                        <!-- 탭 메뉴 -->
                         <ul class="nav nav-tabs" id="myTab" role="tablist">
                             <li class="nav-item" role="presentation">
                                 <button class="nav-link active" id="followers-tab" data-bs-toggle="tab" data-bs-target="#followers" type="button" role="tab" aria-controls="followers" aria-selected="true">팔로워</button>
@@ -80,36 +87,39 @@
                                 <button class="nav-link" id="recommendations-tab" data-bs-toggle="tab" data-bs-target="#recommendations" type="button" role="tab" aria-controls="recommendations" aria-selected="false">추천</button>
                             </li>
                         </ul>
-						<!-- 탭 콘텐츠 -->
-						<div class="tab-content" id="myTabContent">
-							<!-- 팔로워 목록 -->
-							<div class="tab-pane fade show active" id="followers" role="tabpanel" aria-labelledby="followers-tab">
-							    <div class="list-group">
-							        <!-- Thymeleaf의 th:each를 사용하여 팔로워 목록 동적 생성 -->
-							        <div th:each="follower : ${followerUsers}" class="list-group-item d-flex align-items-center">
-							            <img th:src="${follower.profilePictureUrl != null ? follower.profilePictureUrl : '/images/default_profile.png'}" class="rounded-circle me-3" alt="프로필 사진" style="width: 50px; height: 50px;">
-							            <div class="flex-grow-1">
-							                <div th:text="${follower.userName}">사용자 이름</div>
-							                <div class="text-muted" th:text="'@' + ${follower.userId}">@userId</div>
-							            </div>
-							            <button class="btn btn-outline-danger btn-sm">삭제</button>
-							        </div>
-							    </div>
-							</div>
-							<!-- 팔로우 목록을 출력할 영역 -->
-							<div class="tab-pane fade" id="following" role="tabpanel" aria-labelledby="following-tab">
-							    <div class="list-group">
-							        <!-- 반복문을 사용하여 팔로잉 목록 동적 생성 -->
-							        <div th:each="following : ${followingUsers}" class="list-group-item d-flex align-items-center">
-							            <img th:src="${following.profilePictureUrl != null ? following.profilePictureUrl : '/images/default_profile.png'}" class="rounded-circle me-3" alt="프로필 사진" style="width: 50px; height: 50px;">
-							            <div class="flex-grow-1">
-							                <div th:text="${following.userName}">사용자 이름</div>
-							                <div class="text-muted" th:text="'@' + ${following.userId}">@userId</div>
-							            </div>
-							            <button class="btn btn-outline-danger btn-sm">삭제</button>
-							        </div>
-							    </div>
-							</div>
+                        <div class="tab-content" id="myTabContent">
+                            <div class="tab-pane fade show active" id="followers" role="tabpanel" aria-labelledby="followers-tab">
+                                <div class="list-group">
+                                    <div th:each="follower : ${followerUsers}" class="list-group-item d-flex align-items-center">
+                                        <img th:src="${follower.profilePictureUrl != null ? follower.profilePictureUrl : '/images/default_profile.png'}" class="rounded-circle me-3" alt="프로필 사진" style="width: 50px; height: 50px;">
+                                        <div class="flex-grow-1">
+                                            <div>
+                                                <a th:href="@{'/user/profile/' + ${follower.userNum}}" th:text="${follower.userName}" class="no-link-style">사용자 이름</a>
+                                            </div>
+                                            <div class="text-muted">
+                                                <a th:href="@{'/user/profile/' + ${follower.userNum}}" th:text="'@' + ${follower.userId}" class="no-link-style">@userId</a>
+                                            </div>
+                                        </div>
+                                        <button class="btn btn-outline-danger btn-sm">삭제</button>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="tab-pane fade" id="following" role="tabpanel" aria-labelledby="following-tab">
+                                <div class="list-group">
+                                    <div th:each="following : ${followingUsers}" class="list-group-item d-flex align-items-center">
+                                        <img th:src="${following.profilePictureUrl != null ? following.profilePictureUrl : '/images/default_profile.png'}" class="rounded-circle me-3" alt="프로필 사진" style="width: 50px; height: 50px;">
+                                        <div class="flex-grow-1">
+                                            <div>
+                                                <a th:href="@{'/user/profile/' + ${following.userNum}}" th:text="${following.userName}" class="no-link-style">사용자 이름</a>
+                                            </div>
+                                            <div class="text-muted">
+                                                <a th:href="@{'/user/profile/' + ${following.userNum}}" th:text="'@' + ${following.userId}" class="no-link-style">@userId</a>
+                                            </div>
+                                        </div>
+                                        <button class="btn btn-outline-danger btn-sm">삭제</button>
+                                    </div>
+                                </div>
+                            </div>
                             <div class="tab-pane fade" id="friends" role="tabpanel" aria-labelledby="friends-tab">
                                 <p>친구 목록이 여기에 표시됩니다.</p>
                             </div>
@@ -123,8 +133,8 @@
         </div>
     </div>
 
-	<div th:replace="~{navbar :: uploadModalFragment}"></div>
-	
+    <div th:replace="~{navbar :: uploadModalFragment}"></div>
+
     <!-- Bootstrap Bundle with Popper from CDN -->
     <script src="https://cdnjs.cloudflare.com/ajax/libs/bootstrap/5.3.3/js/bootstrap.bundle.min.js"></script>
 
@@ -135,7 +145,7 @@
             tabTrigger.show();
         }
     </script>
-	<div th:replace="~{navbar :: uploadModalScript}"></div>
+    <div th:replace="~{navbar :: uploadModalScript}"></div>
 
 </body>
 
