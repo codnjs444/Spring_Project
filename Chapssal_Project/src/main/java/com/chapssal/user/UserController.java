@@ -5,8 +5,10 @@ import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.dao.DataIntegrityViolationException;
+import org.springframework.security.authentication.AnonymousAuthenticationToken;
 import org.springframework.security.core.Authentication;
 import org.springframework.security.core.annotation.AuthenticationPrincipal;
+import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.security.oauth2.core.user.OAuth2User;
 import org.springframework.stereotype.Controller;
@@ -125,8 +127,13 @@ public class UserController {
     }
 
     @GetMapping("/profile")
-    public String getUserProfile(Model model, @AuthenticationPrincipal UserDetails currentUser) {
-        String username = currentUser.getUsername();
+    public String getUserProfile(Model model) {
+        Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
+        if (authentication == null || authentication instanceof AnonymousAuthenticationToken) {
+            return "redirect:/login";  // 로그인 페이지로 리다이렉트
+        }
+
+        String username = authentication.getName();  // 로그인한 사용자의 이름 가져오기
         String schoolName = userService.getSchoolNameByUserId(username);
         String userName = userService.getUserNameByUserId(username);
         String bio = userService.getUserBioByUserId(username);
@@ -142,25 +149,28 @@ public class UserController {
         model.addAttribute("followingCount", followingCount);
         model.addAttribute("followerCount", followerCount);
 
-        // 팔로잉과 팔로워 목록 가져오기
         List<User> followingUsers = followService.getFollowingUsers(userNum);
         List<User> followerUsers = followService.getFollowerUsers(userNum);
 
         model.addAttribute("followingUsers", followingUsers);
         model.addAttribute("followerUsers", followerUsers);
 
-
         return "profile";
     }
 
+
     
     @PostMapping("/updateProfile")
-    public String updateProfile(@AuthenticationPrincipal UserDetails currentUser,
-                                @RequestParam("userName") String newUserName,
-                                @RequestParam("bio") String bio,
-                                RedirectAttributes redirectAttributes) {
+    public String updateProfile(@RequestParam("userName") String newUserName, @RequestParam("bio") String bio, RedirectAttributes redirectAttributes) {
+        Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
+        if (authentication == null || authentication instanceof AnonymousAuthenticationToken) {
+            return "redirect:/login";  // 로그인 페이지로 리다이렉트
+        }
+
+        String username = authentication.getName();  // 로그인한 사용자의 이름 가져오기
+
         try {
-            userService.updateUserName(currentUser.getUsername(), newUserName, bio);
+            userService.updateUserName(username, newUserName, bio);
             redirectAttributes.addFlashAttribute("successMessage", "프로필이 성공적으로 업데이트되었습니다.");
         } catch (Exception e) {
             redirectAttributes.addFlashAttribute("errorMessage", "프로필 업데이트에 실패했습니다.");
@@ -169,4 +179,5 @@ public class UserController {
 
         return "redirect:/user/profile";
     }
+
 }
