@@ -17,12 +17,9 @@
         <!-- 메인 콘텐츠가 들어갈 부분 -->
     </div>
 
-	<div th:replace="~{navbar :: uploadModalFragment}"></div>
-	
     <!-- Popper.js 추가 (integrity 속성 제거) -->
     <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/2.10.2/umd/popper.min.js" crossorigin="anonymous"></script>
     <!-- Bootstrap JS 추가 -->
     <script th:src="@{/bootstrap.min.js}"></script>
-	<div th:replace="~{navbar :: uploadModalScript}"></div>
 </body>
 </html>
