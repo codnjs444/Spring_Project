@@ -1,4 +1,4 @@
-package com.chapssal.main.controller;
+package com.chapssal;
 
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.GetMapping;

@@ -1,4 +1,4 @@
-package com.chapssal.user.service;
+package com.chapssal.user;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -10,10 +10,6 @@ import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.security.core.userdetails.UserDetailsService;
 import org.springframework.security.core.userdetails.UsernameNotFoundException;
 import org.springframework.stereotype.Service;
-
-import com.chapssal.user.model.User;
-import com.chapssal.user.model.UserRole;
-import com.chapssal.user.repository.UserRepository;
 
 import lombok.RequiredArgsConstructor;
 

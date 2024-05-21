@@ -1,5 +1,4 @@
-package com.chapssal.user.model;
-
+package com.chapssal.user;
 
 import jakarta.persistence.Entity;
 import jakarta.persistence.Table;
@@ -27,7 +26,7 @@ public class User {
     @Column(name = "userName", nullable = true)
     private String userName;  // 사용자 이름
 
-    @Column(name = "password", nullable = false)
+    @Column(name = "password", nullable = true)
     private String password;  // 비밀번호
 
     @Column(name = "profilePictureUrl", nullable = true)
@@ -53,4 +52,11 @@ public class User {
 
     @Column(name = "authority", nullable = true)
     private Integer authority;  // 권한 레벨
+
+    @Column(name = "bio", length = 255)
+    private String bio; // 자기소개
+
+    // 투표권(투표 횟수), 디폴트 0
+    @Column(name = "vote", nullable = false, columnDefinition = "INT DEFAULT 0")
+    private Integer vote; // 투표권
 }

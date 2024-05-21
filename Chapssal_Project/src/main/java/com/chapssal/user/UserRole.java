@@ -1,4 +1,4 @@
-package com.chapssal.user.model;
+package com.chapssal.user;
 
 import lombok.Getter;
 
