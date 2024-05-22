@@ -4,9 +4,14 @@ import jakarta.persistence.Entity;
 import jakarta.persistence.Table;
 import jakarta.persistence.Column;
 import jakarta.persistence.Id;
+import jakarta.persistence.JoinColumn;
+import jakarta.persistence.ManyToOne;
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
 import java.time.LocalDateTime;
+
+import com.chapssal.school.School;
+
 import lombok.Getter;
 import lombok.Setter;
 
@@ -32,8 +37,9 @@ public class User {
     @Column(name = "profilePictureUrl", nullable = true)
     private String profilePictureUrl;  // 프로필 사진 URL
 
-    @Column(name = "school", nullable = true)
-    private Integer school;  // 소속 초등학교 번호
+    @ManyToOne
+    @JoinColumn(name = "school", referencedColumnName = "schoolNum")
+    private School school;  // School 엔티티 참조
 
     @Column(name = "createDate", nullable = false)
     private LocalDateTime createDate;  // 계정 생성 일자

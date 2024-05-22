@@ -25,6 +25,8 @@ public class CustomOAuth2LoginSuccessHandler extends SimpleUrlAuthenticationSucc
     public void onAuthenticationSuccess(HttpServletRequest request, HttpServletResponse response, Authentication authentication) throws IOException, ServletException {
         OAuth2User oAuth2User = (OAuth2User) authentication.getPrincipal();
         String userId = oAuth2User.getAttribute("id").toString();
+        
+        // Get or create user from the database
         User user = userService.findByUserId(userId);
 
         if (user.getSchool() == null) {

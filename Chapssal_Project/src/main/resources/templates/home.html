@@ -1,6 +1,69 @@
 <!DOCTYPE html>
 <html layout:decorate="~{layout}">
-<div layout:fragment="content" class="container">
-    <h5 class="my-3 border-bottom pb-2">답변 수정</h5>
-</div>
+	<head>
+	    <style>
+			body, html {
+			    height: 100%;
+			    margin: 0;
+			    overflow: hidden;
+			}
+			.scroll-container {
+			    height: 100%;
+			    overflow-y: scroll;
+			    padding: 20px;
+			    display: grid;
+			    grid-template-columns: repeat(5, 1fr); /* 가로로 5개씩 배치 */
+			    gap: 10px; /* 간격을 추가하여 카드 간격을 줍니다 */
+			}
+			.video-section {
+			    overflow: hidden; /* 내용물이 넘칠 경우 숨김 */
+			    display: flex;
+			    flex-direction: column;
+			    align-items: center;
+			    padding: 10px; /* 카드 내부 패딩 */
+			}
+			.video-container {
+			    width: 100%;
+			    height: 150px; /* 비디오 컨테이너 높이 설정 */
+			    background-color: #000; /* 비디오가 로드되지 않은 경우 배경색 */
+			    display: flex;
+			    justify-content: center;
+			    align-items: center;
+			}
+			video {
+			    max-width: 100%;
+			    max-height: 100%;
+			}
+			.video-content {
+			    width: 100%;
+			    text-align: center;
+			}
+	    </style>
+	</head>
+	<body>
+	    <div layout:fragment="content" class="container">
+			<div class="scroll-container">
+	            <div th:if="${videos != null}">
+	                <div th:each="video : ${videos}" class="video-section">
+	                    <!-- 영상 -->
+	                    <div class="video-container">
+	                        <video controls>
+	                            <source th:src="${video.videoUrl}" type="video/mp4">
+	                            Your browser does not support the video tag.
+	                        </video>
+	                    </div>
+	
+	                    <!-- 영상 콘텐츠 -->
+	                    <div class="video-content">
+	                        <h5 th:text="${video.title}"></h5>
+	                        <p th:text="${video.user.userName}"></p>
+	                    </div>
+	                </div>
+	            </div>
+	            <div th:if="${videos == null}">
+	                <p>비디오가 없습니다. 비디오를 업로드해주세요.</p>
+	            </div>
+	        </div>
+	    </div>
+	</body>
 </html>
