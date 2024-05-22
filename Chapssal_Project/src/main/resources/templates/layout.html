@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html lang="ko">
+<html lang="ko" xmlns:th="http://www.thymeleaf.org" xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
@@ -17,9 +17,10 @@
         <!-- 메인 콘텐츠가 들어갈 부분 -->
     </div>
 
-    <!-- Popper.js 추가 (integrity 속성 제거) -->
+    <!-- External JavaScripts -->
+    <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/2.10.2/umd/popper.min.js" crossorigin="anonymous"></script>
-    <!-- Bootstrap JS 추가 -->
     <script th:src="@{/bootstrap.min.js}"></script>
+    <script th:src="@{/js/openTab.js}" defer></script>
 </body>
 </html>

@@ -28,6 +28,7 @@ public class UserService {
         user.setCreateDate(createDate);
         user.setLastUpdate(lastUpdate);
         user.setLastLogin(lastLogin);
+        user.setVote(0); // 기본값 설정
 
         userRepository.save(user);
         return user;

@@ -58,5 +58,5 @@ public class User {
 
     // 투표권(투표 횟수), 디폴트 0
     @Column(name = "vote", nullable = false, columnDefinition = "INT DEFAULT 0")
-    private Integer vote; // 투표권
+    private Integer vote = 0; // 투표권
 }
